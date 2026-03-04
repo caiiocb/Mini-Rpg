@@ -6,13 +6,13 @@ public abstract class Personagem {
     private int strength;
     private int level;
 
-    public abstract void atacar();
+    public abstract void atacar(Personagem alvo);
 
-    public Personagem(String nome) {
+    public Personagem(String nome, int strength) {
         this.nome = nome;
         this.life = 100;
-        this.strength = 1;
-        this.level = 0;
+        this.strength = strength;
+        this.level = 1;
     }
     public int getLevel() {
         return level;
@@ -55,4 +55,5 @@ public abstract class Personagem {
                 ", strength=" + strength +
                 '}';
     }
+
 }

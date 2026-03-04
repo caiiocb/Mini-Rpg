@@ -13,16 +13,16 @@ Este projeto é um simulador de batalhas RPG desenvolvido em Java para consolida
 - [X] Métodos `getters` e `setters` com validações básicas.
 - [X] Instanciação de objetos básicos no `Main`.
 
-### 🟡 FASE 2: Herança & Polimorfismo (Especialização)
-- [ ] Criar subclasses: `Guerreiro`, `Mago` e `Arqueiro`.
-- [ ] Implementar o método abstrato `atacar()` (cada classe com seu cálculo de dano).
-- [ ] Utilizar o `super()` nos construtores das subclasses.
-- [ ] Criar uma `Interface` chamada `ItemInterativo` (para poções ou equipamentos).
+### 🟡 FASE 2: Herança & Polimorfismo (Especialização) - Concluído
+- [X] Criar subclasses: `Guerreiro`, `Mago` e `Arqueiro`.
+- [X] Implementar o método abstrato `atacar()` (cada classe com seu cálculo de dano).
+- [X] Utilizar o `super()` nos construtores das subclasses.
+- [X] Criar uma `Interface` chamada `ItemInterativo` (para poções ou equipamentos).
 
 ### 🟠 FASE 3: Engine de Batalha & Lógica (Controller)
-- [ ] Implementar o `Scanner` para leitura de comandos do jogador.
-- [ ] Criar a classe `Batalha.java` para gerenciar os turnos.
-- [ ] Lógica de Condicionais: Verificar se a vida chegou a 0 (Game Over).
+- [X] Implementar o `Scanner` para leitura de comandos do jogador.
+- [X] Criar a classe `Batalha.java` para gerenciar os turnos.
+- [X] Lógica de Condicionais: Verificar se a vida chegou a 0 (Game Over).
 - [ ] Sistema de experiência: Ganhar XP ao vencer uma batalha.
 
 ### 🔴 FASE 4: Refatoração & UI (Avançado)
