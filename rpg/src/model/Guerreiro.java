@@ -10,12 +10,7 @@ public class Guerreiro extends Personagem {
 
     @Override
     public void atacar(Personagem alvo){
-        System.out.println(getNome() + " atacou com força " + getStrength() + " e técnica " + tecnica);
-        
-        int novaVida = alvo.getLife() - this.getStrength();
-        alvo.setLife(novaVida);
-
-        System.out.println("Vida do alvo após o ataque: " + alvo.getLife());
+        super.atacar(alvo);
     }
 
     public int getTecnica() {

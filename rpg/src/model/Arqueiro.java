@@ -10,7 +10,7 @@ public class Arqueiro extends Personagem{
 
     @Override
     public void atacar(Personagem alvo) {
-        System.out.println("Atacando com flechas\nDano no " );
+        super.atacar(alvo);
     }
 
     public int getTecnica() {

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Scanner;
 import model.*;
+import model.Estados.EstadorDefendendo;
 
 public class Batalha  {
     private Scanner sc = new Scanner(System.in);
@@ -11,10 +12,7 @@ public class Batalha  {
         String nome = sc.nextLine();
         System.out.printf("Digite a força do personagem: ");
         int strength = sc.nextInt();
-        System.out.println("Digite o tipo do personagem:" +
-                "(\n1. Guerreiro " +
-                "\n2. Mago \n" +
-                "\n3. Arqueiro):\n ");
+        System.out.printf("Digite a classe do personagem: %n1. Guerreiro%n2. Mago%n3. Arqueiro%n");
         int opcao = sc.nextInt();
         Personagem jogador = null;
         switch (opcao){
@@ -40,22 +38,28 @@ public class Batalha  {
         System.out.println("Inimigo encontrado: " + inimigo);
 
         while (jogador.getLife() > 0) {
-            System.out.printf("O que deseja fazer?%n1. Atacar%n2. Sair%n");
+            System.out.printf("O que deseja fazer?%n1. Atacar%n2. Defender%n3. Sair%n");
             int escolha = sc.nextInt();
             if (escolha == 1) {
                 jogador.atacar(inimigo);
+                System.out.println("Vida do Inimigo: " + inimigo.getLife());
                 if (inimigo.getLife() > 0) {
                     inimigo.atacar(jogador);
-                    System.out.println("Inimigo atacando");
+                    System.out.printf("Vida do %s apos o ataque %d%n", jogador.getNome(), jogador.getLife());
                 }else{
                     System.out.println("Inimigo derrotado!!");
                     jogador.setLevel(jogador.getLevel() + 1);
 
                 }
             } else if (escolha == 2) {
-                System.out.printf("Saindo da batalha...%n");
+                jogador.setEstadoAtual(new EstadorDefendendo());
+                jogador.sofrerDano(inimigo.getStrength());
+
+            }else if (escolha == 3) {
+                System.out.println("Saindo da batalha...");
                 break;
-            } else {
+            }
+            else {
                 System.out.printf("Opção inválida. Tente novamente.%n");
             }
         }

@@ -15,10 +15,11 @@ public class SpawnController {
     }
     public Inimigos spawnInimigosBasico(int level){
         int sorteio = random.nextInt(2);
+        int forcaAletoria = random.nextInt(5) + 1;
         if(sorteio == 0){
-            return new Inimigos("Globin Reconhecedor",sorteio + 1, "Globin");
+            return new Inimigos("Globin Reconhecedor",forcaAletoria, "Globin");
         }else {
-            return new Inimigos("Ratos Mutantes", sorteio, "Mutante");
+            return new Inimigos("Ratos Mutantes", forcaAletoria, "Mutante");
         }
     }
 }

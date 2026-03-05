@@ -1,18 +1,30 @@
 package model;
 
+import model.Estados.EstadoAtacando;
+import model.Estados.EstadoPersonagem;
+import model.Estados.EstadorDefendendo;
+
 public abstract class Personagem {
     private String nome;
     private int life;
     private int strength;
     private int level;
+    private EstadoPersonagem estadoAtual;
 
-    public abstract void atacar(Personagem alvo);
 
     public Personagem(String nome, int strength) {
         this.nome = nome;
         this.life = 100;
         this.strength = strength;
         this.level = 1;
+        this.estadoAtual = new EstadoAtacando();
+    }
+
+    public void atacar(Personagem alvo){
+        estadoAtual.atacar(this, alvo);
+    }
+    public void sofrerDano(int dano){
+        estadoAtual.receberDano(this, dano);
     }
     public int getLevel() {
         return level;
@@ -44,6 +56,14 @@ public abstract class Personagem {
 
     public void setStrength(int strength) {
         this.strength = strength;
+    }
+
+    public EstadoPersonagem getEstadoAtual() {
+        return estadoAtual;
+    }
+
+    public void setEstadoAtual(EstadoPersonagem estadoAtual) {
+        this.estadoAtual = estadoAtual;
     }
 
     @Override
