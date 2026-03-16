@@ -26,8 +26,8 @@ Este projeto é um simulador de batalhas RPG desenvolvido em Java para consolida
 - [ ] Sistema de experiência: Ganhar XP ao vencer uma batalha.
 
 ### 🔴 FASE 4: Refatoração & UI (Avançado)
-- [ ] Aplicar o **Padrão State** (Ex: Estados do Personagem: `Normal`, `Envenenado`, `Defendendo`).
-- [ ] Tratamento de exceções (evitar que o programa feche ao digitar letras em vez de números).
+- [X] Aplicar o **Padrão State** (Ex: Estados do Personagem: `Atacando`, `Defendendo`).
+- [X] Tratamento de exceções (evitar que o programa feche ao digitar letras em vez de números).
 - [ ] (Bônus) Migração da lógica para interface gráfica com **JavaFX**.
 
 ---

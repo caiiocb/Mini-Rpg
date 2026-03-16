@@ -2,7 +2,6 @@ package model;
 
 import model.Estados.EstadoAtacando;
 import model.Estados.EstadoPersonagem;
-import model.Estados.EstadorDefendendo;
 
 public abstract class Personagem {
     private String nome;

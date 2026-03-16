@@ -2,12 +2,23 @@ package controller;
 
 import java.util.Scanner;
 import model.*;
-import model.Estados.EstadorDefendendo;
+import model.Estados.EstadoAtacando;
+import model.Estados.EstadoDefendendo;
 
 public class Batalha  {
     private Scanner sc = new Scanner(System.in);
     public void iniciar(){
         System.out.printf("Iniciando batalha...%n");
+        Personagem jogador = criarJogador();
+        SpawnController spawn =  new SpawnController();
+        Inimigos inimigo =  spawn.spawnInimigosLevel(jogador.getLevel());
+        System.out.println("Inimigo encontrado: " + inimigo);
+        while (turno(jogador, inimigo)){
+            prepararBatalha(jogador, inimigo);
+        }
+       
+    }
+    private Personagem criarJogador(){
         System.out.printf("Digite o nome do personagem: ");
         String nome = sc.nextLine();
         System.out.printf("Digite a força do personagem: ");
@@ -17,7 +28,7 @@ public class Batalha  {
         Personagem jogador = null;
         switch (opcao){
             case 1:
-                jogador = new Guerreiro(nome, strength + 5);
+                jogador = new Guerreiro(nome, strength + 3);
                 System.out.println("Você escolheu o caminho da espada");
                 break;
             case 2:
@@ -30,40 +41,50 @@ public class Batalha  {
                 break;
             default:
                 System.out.println("opcao invalida!!");
-                return;
+                return null;
         }
         System.out.println("Personagem criado: " + jogador);
-        SpawnController spawn =  new SpawnController();
-        Inimigos inimigo =  spawn.spawnInimigosBasico(jogador.getLevel());
-        System.out.println("Inimigo encontrado: " + inimigo);
-
-        while (jogador.getLife() > 0) {
-            System.out.printf("O que deseja fazer?%n1. Atacar%n2. Defender%n3. Sair%n");
-            int escolha = sc.nextInt();
-            if (escolha == 1) {
-                jogador.atacar(inimigo);
-                System.out.println("Vida do Inimigo: " + inimigo.getLife());
-                if (inimigo.getLife() > 0) {
-                    inimigo.atacar(jogador);
-                    System.out.printf("Vida do %s apos o ataque %d%n", jogador.getNome(), jogador.getLife());
-                }else{
-                    System.out.println("Inimigo derrotado!!");
-                    jogador.setLevel(jogador.getLevel() + 1);
-
-                }
-            } else if (escolha == 2) {
-                jogador.setEstadoAtual(new EstadorDefendendo());
-                jogador.sofrerDano(inimigo.getStrength());
-
-            }else if (escolha == 3) {
-                System.out.println("Saindo da batalha...");
-                break;
-            }
-            else {
-                System.out.printf("Opção inválida. Tente novamente.%n");
-            }
-        }
-
+        
+        return jogador;
     }
 
+    private boolean prepararBatalha(Personagem jogador, Inimigos inimigo){
+        System.out.printf("Escolha sua ação: %n1. Atacar%n2. Defender%n3. Sair%n");
+        int opcao = sc.nextInt();
+        switch (opcao){
+            case 1:
+                jogador.atacar(inimigo);
+                inimigo.atacar(jogador);
+                jogador.setEstadoAtual(new EstadoAtacando());
+                return true;
+            case 2:
+                jogador.setEstadoAtual(new EstadoDefendendo());
+                jogador.sofrerDano(inimigo.getStrength());
+                jogador.setEstadoAtual(new EstadoAtacando());
+                return true;
+            case 3:
+                System.out.println("Saindo da batalha...");
+                return false;
+            default:
+                System.out.println("Opção inválida!!");
+                return true;
+        }
+    }
+    private boolean turno(Personagem jogador, Inimigos inimigo){
+        boolean confirma = prepararBatalha(jogador, inimigo);
+        if (jogador.getLife() == 0){
+            System.out.println("Você foi derrotado...");
+            return false;
+        }
+        if (inimigo.getLife() == 0){
+            System.out.println("Inimigo derrotado!\nParabéns!!! Você subiu de nível, e aumentou a sua força");
+            jogador.setLevel(jogador.getLevel() + 1);
+            jogador.setStrength(jogador.getStrength() + 2);
+            return false;
+        }
+        if(!confirma){
+            return false;
+        }
+        return true;
+    }
 }

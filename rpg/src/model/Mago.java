@@ -9,28 +9,40 @@ public class Mago extends Personagem {
         super(nome, strength);
         this.tecnica = 1;
     }
-    public String feiticos(){
+    public int feiticos(){
         Random random = new Random();
         int sort = random.nextInt(3);
         switch (sort){
             case 0:
-                this.setStrength(this.getStrength() + 2);
-                return "Zoltraak";
+                return 2;
             case 1:
-                this.setStrength(this.getStrength() + 1);
-                return "Flechas de Gelo: Nephtear";
+                return 1;
             case 2:
-                this.setStrength(this.getStrength() + 3);
-                return "Relâmpago Destrutivo: Judradjim";
+                return 3;
             default:
-                return "Errou o feitiço";
+                return 0;
         }
     }
 
     @Override
     public void atacar(Personagem alvo) {
-        System.out.println(getNome() + " atacou com o feitiço " + this.feiticos());
-        super.atacar(alvo);
+        int bonus = this.feiticos();
+        int danoTotal = this.getStrength() + bonus;
+        System.out.println(this.getNome() + " lança " + this.getFeitico(bonus) 
+        + "\n causando " + danoTotal + " de dano em " + alvo.getNome());
+        alvo.sofrerDano(danoTotal);
+    }
+    private String getFeitico(int bonus){
+        switch (bonus) {
+            case 2:
+                return "Zoltraak";              
+            case 1:
+                return "Flechas de Gelo: Nephtear";
+            case 3:
+                return "Relâmpado Destrutivo: Judradjim";
+            default:
+                return "Feitiço básico";
+        }
     }
 
     public int getTecnica() {

@@ -2,7 +2,7 @@ package controller;
 
 import model.ItemInterativo;
 
-public class Itensi implements ItemInterativo {
+public class Itens implements ItemInterativo {
     @Override
     public void equipamento() {
 

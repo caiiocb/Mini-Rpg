@@ -2,7 +2,7 @@ package model.Estados;
 
 import model.Personagem;
 
-public class EstadorDefendendo implements EstadoPersonagem {
+public class EstadoDefendendo implements EstadoPersonagem {
     @Override
     public void atacar(Personagem jogador, Personagem inimigo) {
         System.out.println(jogador.getNome() + " está em posição de defesa");
@@ -13,5 +13,6 @@ public class EstadorDefendendo implements EstadoPersonagem {
         int danoReduzido = dano / 2;
         jogador.setLife(jogador.getLife() - danoReduzido);
         System.out.println(jogador.getNome() + " defendeu o golpe!! Dano reduzido para: " + danoReduzido);
+        System.out.println(jogador.getNome() + " vida: " + jogador.getLife());
     }
 }

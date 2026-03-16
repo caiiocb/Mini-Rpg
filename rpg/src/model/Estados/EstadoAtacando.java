@@ -8,6 +8,7 @@ public class EstadoAtacando implements EstadoPersonagem {
         int dano = jogador.getStrength();
         inimigo.setLife(inimigo.getLife() - dano);
         System.out.println(jogador.getNome() + " atacou, causando " + dano + " de dano!");
+        System.out.println(inimigo.getNome() + " vida: " + inimigo.getLife());
     }
 
     @Override
