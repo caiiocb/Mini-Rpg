@@ -9,10 +9,10 @@ public class SpawnController {
     public Inimigos spawnInimigosLevel(int levelJogador){
         if((levelJogador == 1) || (levelJogador == 2)){
             return spawnInimigosBasico(levelJogador);
-        } else if ((levelJogador == 3) || (levelJogador == 4)){
+        }else if ((levelJogador == 3) || (levelJogador == 4)){
             return spawnInimigosMedio(levelJogador);
         }else if (levelJogador == 5){
-            return spawnInimigosMedio(levelJogador);
+            return spawnInimigosFortes(levelJogador);
         }else{
             return null;
         }
@@ -35,7 +35,7 @@ public class SpawnController {
         return new Inimigos("Trolls",  forcaAletoria, "Trolls");
         }
     }
-    public Inimigos spawnInimigosFortes(int level, int forca){
+    public Inimigos spawnInimigosFortes(int level){
         int sorteio = random.nextInt(2);
         int forcaAletoria = random.nextInt(9, 12);
         if(sorteio == 0){

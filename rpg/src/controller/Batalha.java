@@ -7,6 +7,7 @@ import model.Estados.EstadoDefendendo;
 
 public class Batalha  {
     private Scanner sc = new Scanner(System.in);
+    int maxVida = 100;
     public void iniciar(){
         System.out.printf("Iniciando batalha...%n");
         Personagem jogador = criarJogador();
@@ -14,7 +15,16 @@ public class Batalha  {
         Inimigos inimigo =  spawn.spawnInimigosLevel(jogador.getLevel());
         System.out.println("Inimigo encontrado: " + inimigo);
         while (turno(jogador, inimigo)){
-            prepararBatalha(jogador, inimigo);
+            if((inimigo == null) || (jogador.getLevel() > 5)) {
+                System.out.println("Você zerou o jogo!! Parabêns");
+                break;
+            }
+            if(inimigo.getLife() <= 0){
+                inimigo = spawn.spawnInimigosLevel(jogador.getLevel());
+                if (inimigo != null) {
+                    System.out.println("Novo inimigo encontrado: " + inimigo);
+                }
+            }
         }
        
     }
@@ -72,19 +82,35 @@ public class Batalha  {
     }
     private boolean turno(Personagem jogador, Inimigos inimigo){
         boolean confirma = prepararBatalha(jogador, inimigo);
-        if (jogador.getLife() == 0){
+        if (jogador.getLife() <= 0){
             System.out.println("Você foi derrotado...");
-            return false;
+            inimigo.setLife(maxVida);
+            return continuarJogo(jogador, inimigo);
         }
-        if (inimigo.getLife() == 0){
+        if (inimigo.getLife() <= 0){
             System.out.println("Inimigo derrotado!\nParabéns!!! Você subiu de nível, e aumentou a sua força");
             jogador.setLevel(jogador.getLevel() + 1);
             jogador.setStrength(jogador.getStrength() + 2);
-            return false;
+            return continuarJogo(jogador, inimigo);
         }
         if(!confirma){
             return false;
         }
         return true;
+    }
+    private boolean continuarJogo(Personagem jogador, Inimigos inimigo){
+        System.out.printf("Deseja continuar a aventura?%n1. Sim%n2. Não%n");
+        int opcao = sc.nextInt();
+        if (opcao == 1){
+            jogador.setLife(Math.max(jogador.getLife(), maxVida));
+            System.out.println(jogador);
+            return true;
+        } else if (opcao == 2){
+            System.out.println("Saindo da aventura...");
+            return false;
+        } else {
+            System.out.println("Opção inválida!!");
+            return continuarJogo(jogador, inimigo);
+        }
     }
 }
